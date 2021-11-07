@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Transactions</title>
+	<link rel="stylesheet" href="style1.css" />
+
+</head>
+<body>
+
+    
+    <button class="back" onclick="location.href='index.html'"  style="position: absolute;">&laquo; BACK</button>
+    
+
+    <div class="create-form" id = 'createform' style="display: inline-block; position: relative; left: 50%; transform: translateX(-50%);">
+     	
+     	<h1><br>TRANSACTIONS</h1>
+     	<form name="acc-form" id='accform'>
+            <input id = 'acc_num' type="number"  class="input-box" placeholder="Account Number" required>
+            <input id = 'pin' type="pin" class="input-box" placeholder="Account Pin"required>
+            <input id = 'num_days' type="number" class="input-box" placeholder="Number of days"required>
+            
+     		<button type="button" onclick="submit_fun()" class="submit">SUBMIT</button>
+     	    
+     	</form>
+    </div>
+    
+
+    <script>
+        async function submit_fun(){
+            var acc_num = document.getElementById("acc_num").value;
+            var pin = document.getElementById("pin").value;
+            var num_days = document.getElementById("num_days").value;
+                        
+            url = "http://127.0.0.1:8000/Transaction_report?account_number="+acc_num+"&pin="+pin+"&num_days="+num_days;
+            const response = await fetch(url,{method: 'POST'});
+            var data = await response.json();
+
+            var frm = document.getElementsByName('acc-form')[0];
+            frm.reset();
+
+            if(data["Message"]=="Succesful!!"){
+                x = (data['Report']);
+                row1 = ["Account Number", "Deposit / Withdraw", "Amount", "Account Balance", "TimeStamp"]
+                tbl = createTable(data['Report'],row1, row1);
+                document.getElementById("accform").innerHTML = ' ';
+                document.getElementById("createform").style.width="auto";
+                document.getElementById("createform").style.height="auto";
+                document.getElementById("createform").style.backgroundColor="#f8e9d6";
+                
+                frm.appendChild(tbl);                              
+            }
+            else{
+                document.getElementById("accform").innerHTML = "Message: " + data['Message'];
+            }
+        }
+
+
+        function createTable(objectArray, fields, fieldTitles) {
+            let tbl = document.createElement('table');
+            tbl.style.border="1px solid black";                       
+            let thead = document.createElement('thead');
+            let thr = document.createElement('tr');
+            fieldTitles.forEach((fieldTitle) => {
+                let th = document.createElement('th');
+                th.appendChild(document.createTextNode(' '+fieldTitle+ ' '));
+                th.style.border="1px solid black";
+                thr.appendChild(th);
+            });
+            thead.appendChild(thr);
+            tbl.appendChild(thead);
+
+            let tbdy = document.createElement('tbody');
+            let tr = document.createElement('tr');
+            objectArray.forEach((object) => {
+                let tr = document.createElement('tr');
+                fields.forEach((field) => {
+                var td = document.createElement('td');
+                td.appendChild(document.createTextNode(object[field]));
+                td.style.border="1px solid black";
+                tr.appendChild(td);
+                });
+                tbdy.appendChild(tr);    
+            });
+            tbl.appendChild(tbdy);
+            return tbl;
+        }
+
+    </script>
+</body>
+</html>

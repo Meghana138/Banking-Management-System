@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Deposit</title>
+	<link rel="stylesheet" href="style1.css" />
+</head>
+<body>
+     
+    <button class="back" onclick="location.href='index.html'">&laquo; BACK</button>
+    
+    <div class="create-form">
+     	
+     	<h1>DEPOSIT</h1>
+     	<form name="acc-form" id='accform'>
+            <input id = 'acc_num' type="number"  class="input-box" placeholder="Account Number" required>
+            <input id = 'pin' type="pin" class="input-box" placeholder="Account Pin"required>
+            <input id = 'deposit' type="number" class="input-box" placeholder="Deposit Amount"required>
+            
+     		<button type="button" onclick="submit_fun()" class="submit">SUBMIT</button>
+     	    
+
+     	</form>
+     	
+    </div>
+    
+
+    <script>
+        async function submit_fun(){
+            var acc_num = document.getElementById("acc_num").value;
+            var pin = document.getElementById("pin").value;
+            var deposit = document.getElementById("deposit").value;
+                        
+            url = "http://127.0.0.1:8000/Deposit?account_number="+acc_num+"&pin="+pin+"&deposit_money="+deposit;
+            const response = await fetch(url);
+            var data = await response.json();
+
+            var frm = document.getElementsByName('acc-form')[0];
+            frm.reset();
+
+            
+            if (data['Account Balance']){
+                document.getElementById("accform").innerHTML = "Message : " + data['Message'] + "<br><br>" + "Account Balance : " + data['Account Balance'];
+            }
+            else{
+                document.getElementById("accform").innerHTML = "Message : " + data['Message'];
+            }
+
+         }
+    </script>
+</body>
+</html>

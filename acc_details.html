@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AccountDetails</title>
+	<link rel="stylesheet" href="style1.css" />
+</head>
+<body>
+     
+    <button class="back" onclick="location.href='index.html'">&laquo; BACK</button>
+    
+    <div class="create-form">
+     	
+     	<h1 style="font-size: 32px;">ACCOUNT DETAILS</h1>
+     	<form name="acc-form" id='accform'>
+     		
+     		<input id = 'acc_num' type="number"  class="input-box" placeholder="Account Number" required>
+            <input id = 'pin' type="pin" class="input-box" placeholder="Account Pin"required>
+            
+     		<button type="button" id="submit" onclick="submit_fun()" class="submit">SUBMIT</button>
+
+     	</form>
+    
+    </div>
+    
+
+    <script>
+        async function submit_fun(){
+            
+            var acc_num = document.getElementById("acc_num").value;
+            var pin = document.getElementById("pin").value;
+        
+                        
+            url = "http://127.0.0.1:8000/Check_Account?account_number="+acc_num+"&pin="+pin;
+            const response = await fetch(url,{method: 'POST'});
+            var data = await response.json();
+            
+            var frm = document.getElementsByName('acc-form')[0];
+            frm.reset();
+
+            if(data["Message"]=="Succesful!!"){
+            
+                document.getElementById("accform").innerHTML = "Message : " + data['Message'] + "<br><br>" + "Account Number : " + data['Account Number'] + "<br><br>" + "First Name : " + data['First Name'] + "<br><br>" + "Last Name : " + data['Last Name'] + "<br><br>" + "Address : " + data['Address'] + "<br><br>" + "Account Balance : " + data['Account Balance']+ "<br><br>" + "Phone Number : " + data['Phone Number'];
+            }
+            else{
+                document.getElementById("accform").innerHTML = "Message : " + data['Message'];
+            }
+         }
+    </script>
+</body>
+</html>

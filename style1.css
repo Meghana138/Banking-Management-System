@@ -1,0 +1,81 @@
+body {
+    background-color: #fdf6ea;
+    background-image: url(img/2297293.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.create-form{
+    width: 300px;
+    height: 400px;
+    margin: 8% auto 0;
+    text-align: center;
+    border-radius: 10px;  
+}
+
+
+.back{
+    font-size:  15px ;
+    color: black;
+    background-color: white;
+    width:100px;
+    height: 50px;
+    
+}
+
+.back:hover{
+    background-color: #7CB9E8;
+}
+
+.input-box
+{
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 90%;
+    border: 1px solid #999;
+    outline: none; 
+    
+    background-color: rgba(255,255,255, 0); 
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-transition: background-color 300ms ease;
+	-moz-transition: background-color 300ms ease;
+	transition: background-color 300ms ease;
+
+    border-color: #7e5f26;
+    background-color: #fdf5e6;
+
+}
+
+button
+{
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 10px 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-transition: background-color 300ms ease;
+	-moz-transition: background-color 300ms ease;
+	transition: background-color 300ms ease;
+    
+}
+
+.submit{
+    background-color:#7e5f26;
+    color: white;
+}
+
+.submit:hover {
+    background-color: #be964b;
+
+}

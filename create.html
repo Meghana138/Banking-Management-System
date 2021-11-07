@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Account</title>
+	<link rel="stylesheet" href="style1.css" />
+</head>
+<body>
+
+    
+    <button class="back" onclick="location.href='index.html'">&laquo; BACK</button>
+
+    <div class="create-form">
+    
+    <h1>CREATE ACCOUNT</h1>
+    <form name="acc-form" id='accform'>
+        <input id='firstname' type="firstname" class="input-box" placeholder="First Name" required>
+        <input id = 'lastname' type="lastname" class="input-box" placeholder="Last Name" required>
+        <input id = 'add' type="address" class="input-box" placeholder="Address" required>
+        <input id = 'pinc' type="number"  class="input-box" placeholder="Pincode" required>
+        <input id = 'num' type="number" class="input-box" placeholder="Phone number" required>
+        <input id = 'pin' type="pin" class="input-box" placeholder="Account Pin"required>
+        <input id = 'bal' type="number" class="input-box" placeholder="Account Balance" required>
+        
+        <button type="button" id="submit" onclick="submit_fun()" class="submit">SUBMIT</button>
+        
+    </form>
+    
+    </div>
+    
+
+    <script>
+        async function submit_fun(){
+            var firstname = document.getElementById("firstname").value;
+            var lastname = document.getElementById("lastname").value;
+            var add = document.getElementById("add").value;
+            var pinc = document.getElementById("pinc").value;
+            var num = document.getElementById("num").value;
+            var pin = document.getElementById("pin").value;
+            var bal = document.getElementById("bal").value;
+                        
+            url = "http://127.0.0.1:8000/Create_Account?first_name="+firstname+"&last_name="+lastname+"&address="+add+"&pin_code="+pinc+"&phone_number="+num+"&pin="+pin+"&balance="+bal;
+            const response = await fetch(url);
+            var data = await response.json();
+            
+            var frm = document.getElementsByName('acc-form')[0];
+            frm.reset();
+
+            if(data["Message"]=="Successful"){
+            
+                document.getElementById("accform").innerHTML = "Message : " + data['Message'] + "<br><br>" + "Account Number : " + data['Account Number'];
+            }
+            else{
+                document.getElementById("accform").innerHTML = "Message : " + data['Message'];
+            }
+         }
+
+         
+    </script>
+</body>
+</html>
